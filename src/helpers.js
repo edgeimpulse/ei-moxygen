@@ -11,35 +11,78 @@ var path = require('path');
 var util = require('util');
 var log = require('./logger').getLogger();
 var handlebars = require('handlebars');
+const { start } = require('repl');
 
 module.exports = {
 
   inline: function(code) {
     if (Array.isArray(code)) {
-      var refs, s = '', isInline = false;
+      var refs;
+      var s = '';
+      var in_params = false;
+      var start_param = true;
+
+      console.log("MEMBER" + code);
+
+      s += "```cpp\n";
       code.forEach(function (e) {
         refs = e.split(/(\[.*\]\(.*\)|\n|\s{2}\n)/g);
         refs.forEach(function (f) {
+
+          // console.log(f);
+
+          // Strip function name from links
           if (f.charAt(0) == '[') {
-            // link
             var link = f.match(/\[(.*)\]\((.*)\)/);
             if (link) {
-              isInline ? (s += '`') && (isInline = false) : null;
-              s += '[`' + link[1] + '`](' + link[2] + ')';
+              s += link[1];
             }
           }
+
+          // Line breaks
           else if (f == '\n' || f == '  \n') {
-            // line break
-            isInline ? (s += '`') && (isInline = false) : null;
-            s += f;
+            s += "BREAK" + f;
           }
+
+          // See if we're doing parameters
+          else if (f.charAt(0) == '(') {
+            in_params = true;
+            s += f + "\n";
+          }
+
+          // See if we're done with parameters
+          else if (f.charAt(0) == ')') {
+            in_params = false;
+            s += "\n" + f;
+          }
+
+          // Everything else
           else if (f) {
-            !isInline ? (s += '`') && (isInline = true) : null;
-            s += f;
+
+            // Print each parameter on a line
+            if (in_params) {
+              if (start_param) {
+                s += "    " + f;
+                start_param = false;
+              } else if (f.charAt(0) == ',') {
+                s += f + "\n";
+                start_param = true;
+              } else {
+                s += f;
+              }
+
+            // Print everything else
+            } else {
+              s += f;
+            }
           }
         });
       });
-      return s + (isInline ? '`' : '');
+
+      // Terminate code block
+      s += "\n```\n";
+
+      return s;
     }
     else {
       return '`' + code + '`';
