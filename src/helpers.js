@@ -22,8 +22,6 @@ module.exports = {
       var in_params = false;
       var start_param = true;
 
-      console.log("MEMBER" + code);
-
       s += "```cpp\n";
       code.forEach(function (e) {
         refs = e.split(/(\[.*\]\(.*\)|\n|\s{2}\n)/g);
@@ -41,7 +39,7 @@ module.exports = {
 
           // Line breaks
           else if (f == '\n' || f == '  \n') {
-            s += "BREAK" + f;
+            s += f;
           }
 
           // See if we're doing parameters
@@ -61,6 +59,11 @@ module.exports = {
 
             // Print each parameter on a line
             if (in_params) {
+
+              // Patch: replace "< " with "<" for templates
+              f = f.replace(/<\s/g, '<');
+
+              // Indent parameters, each on a separate line
               if (start_param) {
                 s += "    " + f;
                 start_param = false;
