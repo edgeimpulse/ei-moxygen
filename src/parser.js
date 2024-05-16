@@ -365,6 +365,7 @@ module.exports = {
   },
 
   parseCompound: function (compound, compounddef) {
+
     log.verbose('Processing compound ' + compound.name);
     Object.keys(compounddef.$).forEach(function(prop) {
       compound[prop] = compounddef.$[prop];
@@ -419,7 +420,11 @@ module.exports = {
       }.bind(this));
     }
 
-    compound.proto = helpers.inline([compound.kind, ' ', markdown.refLink(compound.name, compound.refid)]);
+    compound.proto = helpers.inline([
+      compound.kind, 
+      ' ', 
+      markdown.refLink(compound.name, compound.refid)
+    ]);
 
     // kind specific parsing
     switch (compound.kind) {
@@ -448,6 +453,12 @@ module.exports = {
         if (compound.kind == 'group') {
           compound.groupid = compound.id;
           compound.groupname = compound.name;
+        }
+
+        if (compounddef.title) {
+          console.log("GROUP: " + compound.name);
+          console.log("TITLE: " + compounddef.title[0]._);
+          console.log("KIND: " + compound.kind);
         }
 
         // handle innerclass for groups and namespaces
@@ -486,6 +497,7 @@ module.exports = {
   },
 
   parseIndex: function (root, index, options) {
+
     index.forEach(function (element) {
       var doxygen, compound = root.find(element.$.refid, element.name[0], true);
       var xmlParser = new xml2js.Parser({
@@ -505,6 +517,10 @@ module.exports = {
             return;
           }
           this.parseCompound(compound, data.doxygen.compounddef[0]);
+          if (data.doxygen.compounddef[0].title) {
+            compound.title = data.doxygen.compounddef[0].title[0]._;
+            console.log("TITLE: " + data.doxygen.compounddef[0].title[0]._);
+          }
         }.bind(this));
       }
 

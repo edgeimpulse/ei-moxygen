@@ -109,6 +109,10 @@ module.exports = {
 
           var compounds = group.toFilteredArray('compounds');
           compounds.unshift(group); // insert group at top
+
+          // Change name to title
+          group.name = group.title;
+
           helpers.writeCompound(group, templates.renderArray(compounds), doxyparser.references, options);
         });
       }

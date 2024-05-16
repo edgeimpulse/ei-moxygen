@@ -27,13 +27,16 @@ module.exports = {
         refs = e.split(/(\[.*\]\(.*\)|\n|\s{2}\n)/g);
         refs.forEach(function (f) {
 
-          // console.log(f);
-
           // Strip function name from links
           if (f.charAt(0) == '[') {
             var link = f.match(/\[(.*)\]\((.*)\)/);
             if (link) {
-              s += link[1];
+              if (in_params && start_param) {
+                s += "    " + link[1];
+                start_param = false;
+              } else {
+                s += link[1];
+              }
             }
           }
 
@@ -165,8 +168,9 @@ module.exports = {
     var stream = fs.createWriteStream(filepath);
     stream.once('open', function(fd) {
       contents.forEach(function (content) {
-        if (content)
+        if (content) {
           stream.write(content);
+        }
       });
       stream.end();
     });
