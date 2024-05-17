@@ -455,12 +455,6 @@ module.exports = {
           compound.groupname = compound.name;
         }
 
-        if (compounddef.title) {
-          console.log("GROUP: " + compound.name);
-          console.log("TITLE: " + compounddef.title[0]._);
-          console.log("KIND: " + compound.kind);
-        }
-
         // handle innerclass for groups and namespaces
         if (compounddef.innerclass) {
           compounddef.innerclass.forEach(function (innerclassdef) {
@@ -519,7 +513,6 @@ module.exports = {
           this.parseCompound(compound, data.doxygen.compounddef[0]);
           if (data.doxygen.compounddef[0].title) {
             compound.title = data.doxygen.compounddef[0].title[0]._;
-            console.log("TITLE: " + data.doxygen.compounddef[0].title[0]._);
           }
         }.bind(this));
       }
