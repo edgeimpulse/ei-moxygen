@@ -53,8 +53,10 @@ module.exports = {
         }
         template = 'namespace';
         break;
-      case 'class':
       case 'struct':
+        template = 'struct';
+        break;
+      case 'class':
       case 'interface':
         template = 'class';
         break;

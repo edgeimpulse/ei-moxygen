@@ -1,4 +1,4 @@
-## {{kind}} `{{name}}` {{anchor refid}}
+## {{name}} {{anchor refid}}
 
 {{#if basecompoundref}}
 ```

@@ -1,4 +1,4 @@
-# `{{name}}` {{anchor refid}}
+# {{name}} {{anchor refid}}
 
 {{briefdescription}}
 
@@ -7,12 +7,15 @@
 {{#if filtered.members}}
 
 {{#each filtered.members}}
+
 ## {{name}} {{anchor refid}}
 
+```cpp
 {{proto}} 
+```
 
 {{#if enumvalue}}
- Values                         | Descriptions                                
+ Value                          | Description                                 
 --------------------------------|---------------------------------------------
 {{#each enumvalue}}{{cell name}}            | {{cell summary}}
 {{/each}}

@@ -22,7 +22,7 @@ module.exports = {
       var in_params = false;
       var start_param = true;
 
-      s += "```cpp\n";
+      s += "";
       code.forEach(function (e) {
         refs = e.split(/(\[.*\]\(.*\)|\n|\s{2}\n)/g);
         refs.forEach(function (f) {
@@ -86,7 +86,7 @@ module.exports = {
       });
 
       // Terminate code block
-      s += "\n```\n";
+      s += "";
 
       return s;
     }

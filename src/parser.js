@@ -49,7 +49,7 @@ function toMarkdown(element, context) {
             break;
 
           case 'parameteritem': s = '* '; break;
-          case 'programlisting': s = '\n```cpp\n'; break;
+          case 'programlisting': s = ''; break;
           case 'orderedlist':
             context.push(element);
             s = '\n\n';
@@ -133,7 +133,7 @@ function toMarkdown(element, context) {
           case "computeroutput": s += '`'; break;
           case 'parametername': s += '` '; break;
           case 'entry': s = markdown.escape.cell(s) + '|'; break;
-          case 'programlisting': s += '```\n'; break;
+          case 'programlisting': s += ''; break;
           case 'codeline': s += '\n'; break;
           case 'ulink': s = markdown.link(s, element.$.url); break;
           case 'orderedlist':
@@ -428,8 +428,15 @@ module.exports = {
 
     // kind specific parsing
     switch (compound.kind) {
-      case 'class':
+
       case 'struct':
+        if (compound.name == "ei_impulse_result_classification_t") {
+          console.log(compound);
+        }
+        break;
+
+      case 'class':
+      // case 'struct':
       case 'union':
       case 'typedef':
 
