@@ -428,15 +428,9 @@ module.exports = {
 
     // kind specific parsing
     switch (compound.kind) {
-
-      case 'struct':
-        if (compound.name == "ei_impulse_result_classification_t") {
-          console.log(compound);
-        }
-        break;
-
+      
       case 'class':
-      // case 'struct':
+      case 'struct':
       case 'union':
       case 'typedef':
 

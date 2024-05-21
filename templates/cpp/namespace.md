@@ -17,7 +17,7 @@
 {{#if enumvalue}}
  Value                          | Description                                 
 --------------------------------|---------------------------------------------
-{{#each enumvalue}}{{cell name}}            | {{cell summary}}
+{{#each enumvalue}}`{{cell name}}`            | {{cell summary}}
 {{/each}}
 {{/if}}
 
