@@ -1,13 +1,8 @@
 # {{name}} {{anchor refid}}
 
-{{#if briefdescription}}
-**Brief**: {{briefdescription}}
-{{/if}}
+{{briefdescription}}
 
-{{#if detaileddescription}}
-**Description**:  
 {{detaileddescription}}
-{{/if}}
 
 {{#if filtered.members}}
 
