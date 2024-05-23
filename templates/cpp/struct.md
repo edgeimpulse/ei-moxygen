@@ -14,9 +14,14 @@
 ```
 {{/if}}
 
-{{briefdescription}}
+{{#if briefdescription}}
+**Brief**: {{briefdescription}}
+{{/if}}
 
+{{#if detaileddescription}}
+**Description**:  
 {{detaileddescription}}
+{{/if}}
 
  Member                         | Description                                 
 --------------------------------|---------------------------------------------
